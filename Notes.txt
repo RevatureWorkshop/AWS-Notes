@@ -1,0 +1,119 @@
+What is Cloud Computing?
+
+Utilizing resources from a server across the internet. 
+Offering infrastructure, resources and applications over the internet. 
+
+Benefits: 
+    Flexible - pay per use 
+    Scalability - easy to expand our infrastructure
+    Cost Effective 
+    High Availability 
+
+Cloud Platforms
+    AWS*
+    Azure 
+    GCP 
+    
+What is AWS?
+    Comphrensive cloud computing platform - offer a wide range of cloud computing services, 
+    Infrastructure as a Service, Platform aaS, Software aaS, etc - e.g. Storage, databases, machine
+    learning, computing power, etc. 
+
+    AWS provides pay-per-use or subscription based model, making it much cheaper for new or 
+    existing enterprises to expand their infrastucture. 
+
+
+How do we control access to our cloud services?
+    Security Groups - define inbound and outbound rules 
+    IAM - Identity and Access MAnagement 
+
+
+IAM: 
+    This is used to control which services and users have access to your cloud resources 
+    User - can define a person or an external service, typically more long-term account 
+            to give access to resources 
+    Roles - are given to AWS resources so that they can have temporary access to other 
+            AWS resources. 
+
+VPC: 
+    Virtual Private Cloud - virtual network environment that contains a grouping of 
+    your resources that are isolated from other VPCs 
+
+    Define a range of IP address ranges, subnets, routing tables - EC2 instances, databases 
+    and S3 buckets. 
+
+    Subnet: 
+        Inside of VPCs, subnets are used to divide the VPC IP address range into smaller 
+        blocks. Makes it easier to manage network traffic and control access.
+        Each subnet has its own range of IP address and is associated with a availability zone.
+
+        Security - control access to resource within the VPC 
+        Isolation - provides isolation between resources with the VPC 
+        Routing - allows to define routing tables and network gateways.
+
+    Private and Public Subnets - private is typically for internal AWS resources to access it.
+    public is for public internet access. 
+
+    Availability Zones: 
+        Basically isolated resource centers. Each region will have multiple centers, so that
+        in case of a disaster, power outages, earthquakes, floods, etc . 
+
+
+S3 bucket: 
+    Simple Storage Solution, it is typically used to store objects. Designed for storing and    
+    retrieiving large amounts of unstructured data, e.g. files, images and vidoes. 
+    We can use S3 to host static webpage. 
+
+CloudFront: 
+    I'll add notes here when I get more time. 
+
+EC2: 
+    Elastic Cloud Compute instance - an example of infrastructre as code (IaaS). This is 
+    effectiively a virtual machine that allows us to configure the OS, libraries and applications
+    that we need. 
+
+    When configuring an EC2 isntance, we can configure an AMI (Amazon Machine Image).
+    This is basically a template for our cloud instance, with the OS and the libraries that
+    will be included. 
+
+ACL vs Object Ownership: 
+	ACL is more granular for managing permissions on S3. An ACL is a list of access control rules that can be applied to a bucket or object. They are less flexible compared to IAM policies and bucket policies. 
+	Bucket policy - bucket owner automatically owns and has full control over every bucket in the S3 bucket. 
+
+
+Bucket Policy examples and breakdown: 
+1. Effect : Can be “Allow” or “Deny”, indicates whether the statement allows or denies
+2.Action: Lists the specific AWS service actions (e.g. s3:GetObject” or “ec2:RunInstances”)
+    a. “ec2: StartInstances”
+    b. “rdsDeleteDBInstance:
+    c. “lambda:DeleteFunction”
+    d. [
+    "s3:GetObject",
+    "s3:PutObject",
+    "s3:DeleteObject"
+    ]   
+3. Resource: Specifies the AWS resources to which the actions apply - usually by their Amazon Resource Names (ARNs)
+    a. “arn:aws:s3:::<bucket-name>” A specific bucket
+    b. “arn:aws:s3:::<bucket-name>/*” All object in a S3 bucket
+    c. "arn:aws:s3:::<bucket-name>/<object-key>" A specific object
+    d. A specific RDS instance: "arn:aws:rds:region:account-id:db:db-instance-name"
+    e. All RDS instances in an account: "arn:aws:rds:region:account-id:db:*"
+    f. A specific EC2 instance: "arn:aws:ec2:region:account-id:instance/instance-id"
+    g. All EC2 instances in an account: "arn:aws:ec2:region:account-id:instance/*"
+4. Principle: Defines who the statement applies to - in s3 bucket policies, the principle is implicitly the bucket owner. 
+    a. “Principle”: { “AWS”: “arn:aws:iam:<AWS account>:root”}
+    b. “Principle”: { “AWS”: “arn:aws:iam:<AWS account>:user/<username>”}
+    c. “Principle”: { “AWS”: “arn:aws:iam:<AWS account>:role/<rolename>”}
+    d. “Principle”: { “Service”: “ec2.amazonaws.com”}
+
+ACL vs Object Ownership
+
+
+Today's challenge: 
+> Create an S3 bucket and host a static web page
+    (permissions can be done using ACL or not - I recommend using the bucket policy)
+
+> Create an EC2 instance and deploy anything 
+    -> make sure it's a web server that you can publicly access 
+    (Configure the security Groups)
+
