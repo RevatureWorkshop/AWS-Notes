@@ -1,0 +1,64 @@
+my-first-function: 
+export const handler = async(event) => {
+    // TODO implement
+    const response = {
+        statusCode: 200,
+        body: JSON.stringify('Hello from Lambda, this is my very first function!'),
+    };
+    return response;
+};
+
+
+greetings-function: 
+export const handler = async(event) => {
+    
+    //Let's try to pass a path variable to our function 
+    //In this case, our path parameter sill be "my_name"
+    
+    let name = event.pathParameters.my_name;
+    let color = event.queryStringParameters.my_color;
+    
+    console.log(name);
+    console.log(event);
+    
+    const response = {
+        statusCode: 200,
+        body: JSON.stringify('Hello from Lambda! Your name is ' + name + "| Your favorite color is: " + color)
+    };
+    
+    return response;
+};
+
+poke-fetch-function: 
+
+const base_url = "https://pokeapi.co/api/v2/pokemon/";
+
+export const handler = async(event) => {
+    
+    console.log(event);
+    
+    //Grabbing pokemon id from path parameter
+    let pokemon_id = event.pathParameters.poke_id;
+    // let pokemon_id = 2;
+    
+    //Send of a fetch GET request to pokemon api with poke id 
+    let res = await fetch(base_url + pokemon_id);
+    
+    // console.log(res);
+    
+    //Convert the response data into an object 
+    let resData = await res.json(); 
+    
+    let poke = {
+        "name": resData.name,
+        "abilities":resData.abilities
+    }
+    
+    console.log(poke);
+
+    const response = {
+        statusCode: 200,
+        body: JSON.stringify(poke),
+    };
+    return response;
+};

@@ -65,7 +65,9 @@ S3 bucket:
     We can use S3 to host static webpage. 
 
 CloudFront: 
-    I'll add notes here when I get more time. 
+    Is a Content Delivery Network (CDN) - allowing you to deliver web pages, images, vidoes and other media 
+    to customers with low latency and high transfer speeds. It works by caching your content in edge locations 
+    (data centers that are spread out around the world), reducing the time it takes to load your content. 
 
 EC2: 
     Elastic Cloud Compute instance - an example of infrastructre as code (IaaS). This is 
@@ -106,14 +108,45 @@ Bucket Policy examples and breakdown:
     c. “Principle”: { “AWS”: “arn:aws:iam:<AWS account>:role/<rolename>”}
     d. “Principle”: { “Service”: “ec2.amazonaws.com”}
 
-ACL vs Object Ownership
+--------------------------------------------------------------------------------------
 
+AWS RDS: 
+    AWS Relational Database System 
+    It is a fully managed database service by AWS, allows to set up, manage and scale RDS in the cloud. 
+    It has support for PostgreSQL, Orcale, SQL Server, and MariaDB 
+    
+IaaS vs PaaS vs SaaS 
+    Infrastructure as a service provides access to the computing infrastrucutre, e.g. virtual machines, storage, networking, OS, etc. 
+    With IaaS we get maximum control over everything. The downside to this is that we have to configure and manage 
+    everything ourselves. 
 
-Today's challenge: 
-> Create an S3 bucket and host a static web page
-    (permissions can be done using ACL or not - I recommend using the bucket policy)
+    Platform as a Service, provides a higher level of abstraction. The platform that our application is going to be run on 
+    is managed by AWS, so we can focus on managing the application only. 
+    This makes PaaS easier to use, typically they provide a GUI to manage and configure it. The downside being we lose more 
+    control over our systems. 
 
-> Create an EC2 instance and deploy anything 
-    -> make sure it's a web server that you can publicly access 
-    (Configure the security Groups)
+    Software as a Service. This is a software that is entirely managed by a platform and offered over the web, e.g. Google Drive, 
+    MS 365 Online, etc . 
+
+Serverless Computing 
+    Developers can deploy their applications without having to manage anthing on the server side. This makes it easier to 
+    deploy applications because we have less things to manage. 
+
+AWS Lambda - "Backend as a Service"
+    This is a service that will run our code in response to events and automatically manage all the compute resource. 
+    We can write code in various programming lanugages, e.g. Node.js, Python, Java and Go. 
+    We can build an API using AWS lambda and API gateway, we can easily deploy our apps without worrying about our backend -
+    especially because we only pay per compute use. 
+
+API Gateway: 
+    Service provided by AWS to allow us to build REST APIs (as well as other HTTP APIs and Web Sockets).
+    You can define resources, methods and integrations (other AWS services, like lambda, to be triggered).
+    You can deploy the API into multiple stages (dev, test, prod), each stage being a snapshot of your API that 
+        are independent from each other and can be updated and managed seperately 
+
+AWS Cloud Watch 
+    Is a monitoring tool provided by AWS to collect, and analyze metrics, logs and events from your AWS resources application. It 
+    can process data from a variety of your systems, EC2, RDS and lambda functions. WE can even provide our own custom metrics
+    for our applications. 
+
 
